@@ -5,6 +5,8 @@ import seaborn as sns
 import math
 
 g = 9.81 # meter per second per second
+sns.set_style('darkgrid')
+
 df_lateral = pd.read_csv("lateral_data.csv")
 df_swing = pd.read_csv("swing_data.csv")
 df_torsional = pd.read_csv("torsional_data.csv")
@@ -37,6 +39,39 @@ T_swing = vec_swing(R, H)
 T_lateral = vec_lateral(R, H)
 T_torsional = vec_torsional(R,H,L,d)
 
+sns.relplot(data=df_swing, x = 'string_length', y = 'period_ave', color = 'red', label = "Experimental Period")
+plt.plot(H, T_swing, color = 'blue', label = "Theoretical Period")
+plt.errorbar(df_swing['string_length'], df_swing['period_ave'], df_swing['error'], fmt = 'none', capsize = 3, color = 'red', label = 'Error')
+plt.legend()
+plt.title("Swinging Bifilar Pendulum")
+plt.xlabel("Length of String (m)")
+plt.ylabel("Period of Motion (s)")
+plt.tight_layout()
+plt.savefig("swinging_graph.png")
+plt.show()
+
+sns.relplot(data=df_lateral, x = 'string_length', y = 'period_ave', color = 'red', label = "Experimental Period")
+plt.plot(H, T_lateral, color = 'blue', label = "Theoretical Period")
+plt.errorbar(df_lateral['string_length'], df_lateral['period_ave'], df_lateral['error'], fmt = 'none', capsize = 3, color = 'red', label = 'Error')
+plt.legend()
+plt.title("Lateral Bifilar Pendulum")
+plt.xlabel("Length of String (m)")
+plt.ylabel("Period of Motion (s)")
+plt.tight_layout()
+plt.savefig("lateral_graph.png")
+plt.show()
+
+sns.relplot(data=df_torsional, x = 'string_length', y = 'period_ave', color = 'red', label = "Experimental Period")
+plt.plot(H, T_torsional, color = 'blue', label = "Theoretical Period")
+plt.errorbar(df_torsional['string_length'], df_torsional['period_ave'], df_torsional['error'], fmt = 'none', capsize = 3, color = 'red', label = 'Error')
+plt.legend()
+plt.title("Torsional Bifilar Pendulum")
+plt.xlabel("Length of String (m)")
+plt.ylabel("Period of Motion (s)")
+plt.tight_layout()
+plt.savefig("torsional_graph.png")
+plt.show()
+"""
 plt.plot(H, T_swing)
 plt.scatter(df_swing.string_length, df_swing.period_ave)
 plt.xlabel("String Length (m)")
@@ -57,3 +92,4 @@ plt.xlabel("String Length (m)")
 plt.ylabel("Period (s)")
 plt.title('Torsional')
 plt.show()
+"""
